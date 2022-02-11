@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FunctionalProgramingExcercices.iml" filepath="$PROJECT_DIR$/FunctionalProgramingExcercices.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PruebasMavenProyect.iml" filepath="$PROJECT_DIR$/PruebasMavenProyect.iml" />
     </modules>
   </component>
 </project>
