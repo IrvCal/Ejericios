@@ -86,8 +86,9 @@ public class E3 {
         System.out.println(
                 products.stream().map( //El map se PUEDE REEMPLAZAR POR UN PEEK y se elimina el return product;
                         product -> {
-                            product.getPrice().subtract(product.getPrice().multiply(descuento.getPercentage()));//[17599.20, 16.80, 36.00, 25.60, 24000.00, 62.40, 12.00, 48.00]
-                            return product;//{Alimenticio=[Product(id=c6d8180c-c0c7-49e1-b1b9-8b729a7f87d6, name=Agua, category=Alimenticio, price=21), Product(id=12505070-c0b4-42ad-b880-b4d954ffca73, name=Huevo, category=Alimenticio, price=45), Product(id=b80e3848-99ad-429b-9316-be44d8e2254d, name=Cereal, category=Alimenticio, price=32)], Salud=[Product(id=35d8c184-86c0-4012-9f40-1a4411160bfc, name=Shampoo, category=Salud, price=78), Product(id=deacd21a-5587-4a4a-b3ae-e3586c75f458, name=Jabon, category=Salud, price=15), Product(id=27806c41-46c2-47d9-b18f-d6e5ab7be9df, name=Papel higienico, category=Salud, price=60)], Tecnologia=[Product(id=d956e78d-94a2-4514-82c6-b38af69ac0b1, name=Omen 15La, category=Tecnologia, price=21999), Product(id=352fbd9f-b856-401c-b529-cdf5614fbe24, name=iPhone, category=Tecnologia, price=30000)]}
+                            product.setPrice(
+                            product.getPrice().subtract(product.getPrice().multiply(descuento.getPercentage())));//[17599.20, 16.80, 36.00, 25.60, 24000.00, 62.40, 12.00, 48.00]
+                            return product;//{Alimenticio=[Product(id=990274c7-e3c5-420c-a5f8-34a35923b8ab, name=Agua, category=Alimenticio, price=16.80), Product(id=9e657fba-fcc4-433d-8763-e845a627eee3, name=Huevo, category=Alimenticio, price=36.00), Product(id=d3b6f4c1-5844-4af9-8faf-9d30fa7cf230, name=Cereal, category=Alimenticio, price=25.60)], Salud=[Product(id=26bdb317-36e8-421c-9aee-964e2d0baa36, name=Shampoo, category=Salud, price=62.40), Product(id=194c549f-d84c-4c60-856c-a2c23a4dba5d, name=Jabon, category=Salud, price=12.00), Product(id=a01b8ae2-76c9-4a9b-9ed9-b0ef2d04d042, name=Papel higienico, category=Salud, price=48.00)], Tecnologia=[Product(id=7db75203-1ef4-482b-bf5e-57158fe1bd6a, name=Omen 15La, category=Tecnologia, price=17599.20), Product(id=fac2d6b5-85e7-4fad-8d74-25ef1e51a978, name=iPhone, category=Tecnologia, price=24000.00)]}
                         }
                 ).collect(Collectors.groupingBy(Product::getCategory))
         );
@@ -97,8 +98,22 @@ public class E3 {
         ).collect(Collectors.groupingBy(Product::getCategory));
         //{Alimenticio=[Product(id=c6d8180c-c0c7-49e1-b1b9-8b729a7f87d6, name=Agua, category=Alimenticio, price=21), Product(id=12505070-c0b4-42ad-b880-b4d954ffca73, name=Huevo, category=Alimenticio, price=45), Product(id=b80e3848-99ad-429b-9316-be44d8e2254d, name=Cereal, category=Alimenticio, price=32)], Salud=[Product(id=35d8c184-86c0-4012-9f40-1a4411160bfc, name=Shampoo, category=Salud, price=78), Product(id=deacd21a-5587-4a4a-b3ae-e3586c75f458, name=Jabon, category=Salud, price=15), Product(id=27806c41-46c2-47d9-b18f-d6e5ab7be9df, name=Papel higienico, category=Salud, price=60)], Tecnologia=[Product(id=d956e78d-94a2-4514-82c6-b38af69ac0b1, name=Omen 15La, category=Tecnologia, price=21999), Product(id=352fbd9f-b856-401c-b529-cdf5614fbe24, name=iPhone, category=Tecnologia, price=30000)]}
 
-
+        totalConDescuentos(descuento);
     }
+
+    /**
+     * Me estoy basando en el de arriba porque ya tenia
+     * la sentencia para aplicar desccuentos
+     * lo puse en dos metodos diferentes por legibilidad
+     */
+    private static void totalConDescuentos(PriceModifier descuento){
+        System.out.println("TOTAL DE LA LISTA: "+
+                products.stream().map(
+                        product -> product.getPrice().subtract(product.getPrice().multiply(descuento.getPercentage()))
+                        ).reduce(BigDecimal.ZERO,BigDecimal::add)
+        );
+    }
+
     public static Product applyHouseDiscount(Product product){
         product.setPrice(
                 product.getPrice().subtract(product.getPrice().multiply(new BigDecimal("0.05")))
