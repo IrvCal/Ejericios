@@ -81,7 +81,7 @@ public class E1 {
 
         System.out.println(
                 courses.stream()
-                        .max(Comparator.comparingLong(E1::palabraNumLetras))// se puede poner una lambda tal value -> value.getName().length()) en este caso creo que estaria mejor para no hacer un metodo aparte
+                        .min(Comparator.comparingLong(E1::palabraNumLetras))// se puede poner una lambda tal value -> value.getName().length()) en este caso creo que estaria mejor para no hacer un metodo aparte
 //                        .max(Comparator.comparing(Course::getNumberOfStudents))//regresa el curso con mayor cantidad de estudiantes
         );
     }
