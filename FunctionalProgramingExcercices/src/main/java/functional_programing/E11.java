@@ -3,6 +3,7 @@ package functional_programing;
 import functional_programing.model.Product;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,6 +44,7 @@ public class E11 {
 
     public static void main(String[] args) {
         int price = 400;
+        products.sort(Comparator.comparing(Product::getPrice));
         System.out.println(
         products.stream().filter(product -> product.getPrice().intValue()<price).collect(Collectors.toList())
 );
